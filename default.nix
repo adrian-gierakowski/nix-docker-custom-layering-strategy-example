@@ -40,9 +40,9 @@ let
         };
 
         layeringPipeline = [
-          # Separate python and it's exclusive deps. Facilitates sharing between
-          # images of applications built on the same version of python.
-          ["split_paths" [pkgs.python3]]
+          # Separate python and all it's deps. This facilitates layer sharing
+          #  between images of applications built on the same version of python.
+          ["subcomponent_out" [pkgs.python3]]
           [
             # Apply pipeline below to the "rest" result of the previous split.
             "over"
