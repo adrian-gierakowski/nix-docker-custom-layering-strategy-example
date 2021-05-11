@@ -40,8 +40,9 @@ let
         };
 
         layeringPipeline = [
-          # Separate python and all it's deps. This facilitates layer sharing
-          #  between images of applications built on the same version of python.
+          # Separate python and all it's deps from the rest of the paths.
+          # This facilitates layer sharing between images of applications built
+          # on the same version of python.
           ["subcomponent_out" [pkgs.python3]]
           [
             # Apply pipeline below to the "rest" result of the previous split.
@@ -62,17 +63,20 @@ let
                       # it's own layer).
                       ["subcomponent_in" [ankisyncd]]
                       [
-                        # "rest" contains deps of ankisyncd, which we split
-                        # according to reverse popularity, which results direct
-                        # dependencies (more likely to change) to be put in
-                        # their own layer.
+                        # "rest" contains deps of ankisyncd
                         "over"
                         "rest"
                         [
                           "pipe"
                           [
+                            # Sort by popularity (more dependants == more
+                            # popular), and then reverse.
                             ["popularity_contest"]
                             ["reverse"]
+                            # The fist 109 deps which are closest to ankisyncd
+                            # in the reference graph (and hence more likely to
+                            # change) get their own layer each. The rest get
+                            # combined into 1 layer.
                             ["limit_layers" 110]
                           ]
                         ]
@@ -80,8 +84,8 @@ let
                     ]
                   ]
                 ]
-                # "rest" contains all packages which are not is not in the
-                #  dependency graph of ankisyncd.
+                # "rest" contains all packages which are not in the dependency
+                # graph of ankisyncd.
                 [
                   "over"
                   "rest"
@@ -103,4 +107,6 @@ let
       }
   ;
 
+# streamLayeredImage needs to come prom host pkgs so that it can be executed
+# on the host
 in pkgs.dockerTools.streamLayeredImage (makeImageOptions pkgsLinux)
