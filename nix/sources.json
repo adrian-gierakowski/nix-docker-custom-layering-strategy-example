@@ -17,10 +17,10 @@
         "homepage": null,
         "owner": "adrian-gierakowski",
         "repo": "nixpkgs",
-        "rev": "6ecd4fff3ec3e104a4f6e004c4effe1bca15d402",
-        "sha256": "185hka0ni62vms6lmcc9mps32xzr737hh2vm91dz4j3znljr3l10",
+        "rev": "5b4a8db4d9ae791a4d2a1f205806ef95c3efc853",
+        "sha256": "1pz12wxnpd578hm6b5mqps46dghn76irf13fb6yc4h7nczp1gcdf",
         "type": "tarball",
-        "url": "https://github.com/adrian-gierakowski/nixpkgs/archive/6ecd4fff3ec3e104a4f6e004c4effe1bca15d402.tar.gz",
+        "url": "https://github.com/adrian-gierakowski/nixpkgs/archive/5b4a8db4d9ae791a4d2a1f205806ef95c3efc853.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
