@@ -75,12 +75,11 @@
     "/nix/store/n303fisfpb47mjm37iacp3vyqq7zdk0d-python3.12-pycparser-2.22"
   ],
   [
-    "/nix/store/a0a9hgrrcyii50mhcry2ilk5fqq67c9m-startup-script",
-    "/nix/store/bbd8iwdyhh195djhyl8ci6zn18rdsc2p-with-env-from-dir",
-    "/nix/store/8m60wjdwv5f9j0450d18x45fhv1lxlzx-startup-script"
+    "/nix/store/ba4jadp1ira4giljkfvimqrbrr7mcd8v-startup-script",
+    "/nix/store/bj5na6xv5ghcz9bgy5v3psvilpkm6fn8-startup-script",
+    "/nix/store/jprcjdmblw14vfjyx98ip3p02ahz8g95-with-env-from-dir"
   ],
   [
-    "/nix/store/4qchknbqdh4rkd6lzbhamjbc702f1llv-with-env-from-dir",
     "/nix/store/j2v823114cc2dqfvprlcx9h7i941kknh-attr-2.5.2",
     "/nix/store/0dglgnjm2s5qg4ar6m33lpclqig0kg2x-acl-2.3.2",
     "/nix/store/i2bs001zwvii9qbhk6mm291gqybpij87-gmp-with-cxx-6.3.0",
