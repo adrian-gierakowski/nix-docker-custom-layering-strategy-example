@@ -1,5 +1,5 @@
 {
-  name ? "ankisyncd",
+  name ? "alerta",
   tag ? null,
   system ? builtins.currentSystem,
   pkgs ? import ./nixpkgs.nix { inherit system; }
@@ -15,12 +15,12 @@ let
 
   makeImageOptions = pkgs:
     let
-      ankisyncd = import ./ankisyncd.nix { inherit pkgs; };
+      alerta = import ./alerta.nix { inherit pkgs; };
       with-env-from-dir = import ./with-env-from-dir { inherit pkgs; };
 
       startup-script = pkgs.writers.writeBash "startup-script" ''
         set -ueo pipefail
-        exec ${with-env-from-dir} /secrets "${ankisyncd}/bin/ankisyncd"
+        exec ${with-env-from-dir} /secrets "${alerta}/bin/alerta"
       ''
       ;
     in
@@ -31,6 +31,8 @@ let
           cacert
           busybox
         ];
+
+        maxLayers = 127;
 
         config = {
           Cmd = [ "${startup-script}" ];
@@ -51,19 +53,19 @@ let
             [
               "pipe"
               [
-                ["split_paths" [ankisyncd]]
+                ["split_paths" [alerta]]
                 [
                   "over"
-                  # "main" contains ankisyncd application and it's dependencies.
+                  # "main" contains alerta application and it's dependencies.
                   "main"
                   [
                     "pipe"
                     [
-                      # Separate ankisyncd from it's deps (so that it sits in
+                      # Separate alerta from it's deps (so that it sits in
                       # it's own layer).
-                      ["subcomponent_in" [ankisyncd]]
+                      ["subcomponent_in" [alerta]]
                       [
-                        # "rest" contains deps of ankisyncd
+                        # "rest" contains deps of alerta
                         "over"
                         "rest"
                         [
@@ -73,7 +75,7 @@ let
                             # popular), and then reverse.
                             ["popularity_contest"]
                             ["reverse"]
-                            # The fist 109 deps which are closest to ankisyncd
+                            # The fist 109 deps which are closest to alerta
                             # in the reference graph (and hence more likely to
                             # change) get their own layer each. The rest get
                             # combined into 1 layer.
@@ -85,7 +87,7 @@ let
                   ]
                 ]
                 # "rest" contains all packages which are not in the dependency
-                # graph of ankisyncd.
+                # graph of alerta.
                 [
                   "over"
                   "rest"
